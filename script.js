@@ -1,22 +1,22 @@
-//your JS code here. If required.
+//your JS code here
+
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 const checkbox = document.getElementById("checkbox");
-const submit = document.getElementById("submit");
-const existing = document.getElementById("existing");
-const form = document.getElementById("loginForm");
+const submitBtn = document.getElementById("submit");
+const existingBtn = document.getElementById("existing");
 
-// check if credentials exist in localStorage
-const savedUser = localStorage.getItem("username");
-const savedPass = localStorage.getItem("password");
+// check saved credentials on page load
+const savedUsername = localStorage.getItem("username");
 
-if(savedUser && savedPass){
-    existing.style.display = "block";
+if (savedUsername) {
+    existingBtn.style.display = "block";
+} else {
+    existingBtn.style.display = "none";
 }
 
-// form submit
-form.addEventListener("submit", function(e){
-
+// submit button click
+submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     const user = username.value;
@@ -24,26 +24,22 @@ form.addEventListener("submit", function(e){
 
     alert(`Logged in as ${user}`);
 
-    if(checkbox.checked){
+    if (checkbox.checked) {
         localStorage.setItem("username", user);
         localStorage.setItem("password", pass);
-        existing.style.display = "block";
-    }
-    else{
+        existingBtn.style.display = "block";
+    } else {
         localStorage.removeItem("username");
         localStorage.removeItem("password");
-        existing.style.display = "none";
+        existingBtn.style.display = "none";
     }
-
 });
 
 // login as existing user
-existing.addEventListener("click", function(){
-
+existingBtn.addEventListener("click", function () {
     const storedUser = localStorage.getItem("username");
 
-    if(storedUser){
+    if (storedUser) {
         alert(`Logged in as ${storedUser}`);
     }
-
 });
