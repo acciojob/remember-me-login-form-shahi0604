@@ -1,45 +1,48 @@
-//your JS code here
+document.addEventListener("DOMContentLoaded", function () {
 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-const checkbox = document.getElementById("checkbox");
-const submitBtn = document.getElementById("submit");
-const existingBtn = document.getElementById("existing");
+  const form = document.getElementById("loginForm");
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const checkbox = document.getElementById("checkbox");
+  const existingBtn = document.getElementById("existing");
 
-// check saved credentials on page load
-const savedUsername = localStorage.getItem("username");
+  // Hide existing button initially
+  existingBtn.style.display = "none";
 
-if (savedUsername) {
+  // Check localStorage on load
+  const savedUsername = localStorage.getItem("username");
+  const savedPassword = localStorage.getItem("password");
+
+  if (savedUsername && savedPassword) {
     existingBtn.style.display = "block";
-} else {
-    existingBtn.style.display = "none";
-}
+  }
 
-// submit button click
-submitBtn.addEventListener("click", function (e) {
-    e.preventDefault();
+  // Handle form submit
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-    const user = username.value;
-    const pass = password.value;
+    const username = usernameInput.value;
+    const password = passwordInput.value;
 
-    alert(`Logged in as ${user}`);
+    alert("Logged in as " + username);
 
     if (checkbox.checked) {
-        localStorage.setItem("username", user);
-        localStorage.setItem("password", pass);
-        existingBtn.style.display = "block";
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      existingBtn.style.display = "block";
     } else {
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
-        existingBtn.style.display = "none";
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+      existingBtn.style.display = "none";
     }
-});
+  });
 
-// login as existing user
-existingBtn.addEventListener("click", function () {
+  // Existing user login
+  existingBtn.addEventListener("click", function () {
     const storedUser = localStorage.getItem("username");
-
     if (storedUser) {
-        alert(`Logged in as ${storedUser}`);
+      alert("Logged in as " + storedUser);
     }
+  });
+
 });
